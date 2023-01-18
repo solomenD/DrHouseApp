@@ -93,6 +93,10 @@ class HomeViewController: BaseController, UIScrollViewDelegate{
         return button
     }()
     
+    private var nearbyPlaceColletcion = NearbyPlacesCollectionView()
+    
+    private var segmentedControlView = SegmentedTaableView()
+    
     private let testlocationLabel: UILabel = {
         var label = UILabel()
         label.text = "Вы заметили, что iOS 11 добавила пару новых руководств по макету в UIScrollView? Если вы обнаружите, что использование автоматической компоновки с прокруткой сбивает с толку, они могут помочь вам вспомнить, как добавить зависимости.read a great post recently by Agnes Vasarhelyi on Scrollable UIStackView which describes setting up constraints for a scroll view. It reminded me that I meant to take a look at the new layout guides Apple added to UIScrollView in iOS 11 to see if they make the setup any easier to understand.Давайте сначала резюмируем классический способ настройки ограничений с помощью прокрутки.Просмотры Прокрутки - Классическая НастройкаВот мой макет для прогноза погоды. Вид имеет метку заголовка, изображение и метку описания. Обе метки используют динамический тип, что означает, что высота моего представления может резко измениться, поэтому его нужно прокручивать вертикально:Вы заметили, что iOS 11 добавила пару новых руководств по макету в UIScrollView? Если вы обнаружите, что использование автоматической компоновки с прокруткой сбивает с толку, они могут помочь вам вспомнить, как добавить зависимости.read a great post recently by Agnes Vasarhelyi on Scrollable UIStackView which describes setting up constraints for a scroll view. It reminded me that I meant to take a look at the new layout guides Apple added to UIScrollView in iOS 11 to see if they make the setup any easier to understand.Давайте сначала резюмируем классический способ настройки ограничений с помощью прокрутки.Просмотры Прокрутки - Классическая НастройкаВот мой макет для прогноза погоды. Вид имеет метку заголовка, изображение и метку описания. Обе метки используют динамический тип, что означает, что высота моего представления может резко измениться, поэтому его нужно прокручивать вертикально:"
@@ -116,6 +120,9 @@ extension HomeViewController {
         scrollHomeView.setupView(rentButton)
         scrollHomeView.setupView(naerbyPlacesLabel)
         scrollHomeView.setupView(moreButton)
+        scrollHomeView.setupView(nearbyPlaceColletcion)
+        scrollHomeView.setupView(segmentedControlView)
+        
     }
 
     override func setConstraintsView() {
@@ -160,9 +167,19 @@ extension HomeViewController {
             
             moreButton.topAnchor.constraint(equalTo: naerbyPlacesLabel.topAnchor),
             moreButton.trailingAnchor.constraint(equalTo: scrollHomeView.trailingAnchor),
-            moreButton.heightAnchor.constraint(equalToConstant: 34),
             
-            testlocationLabel.topAnchor.constraint(equalTo: naerbyPlacesLabel.bottomAnchor, constant: 50),
+            nearbyPlaceColletcion.topAnchor.constraint(equalTo: naerbyPlacesLabel.bottomAnchor),
+            nearbyPlaceColletcion.trailingAnchor.constraint(equalTo: scrollHomeView.trailingAnchor),
+            nearbyPlaceColletcion.leadingAnchor.constraint(equalTo: scrollHomeView.leadingAnchor),
+            nearbyPlaceColletcion.heightAnchor.constraint(equalToConstant: 200),
+//            
+            segmentedControlView.topAnchor.constraint(equalTo: nearbyPlaceColletcion.bottomAnchor,constant: 8),
+            segmentedControlView.trailingAnchor.constraint(equalTo: scrollHomeView.trailingAnchor),
+            segmentedControlView.leadingAnchor.constraint(equalTo: scrollHomeView.leadingAnchor),
+            segmentedControlView.heightAnchor.constraint(equalToConstant: 400),
+            
+            
+            testlocationLabel.topAnchor.constraint(equalTo: segmentedControlView.bottomAnchor, constant: 50),
             testlocationLabel.leadingAnchor.constraint(equalTo: scrollHomeView.leadingAnchor),
             testlocationLabel.trailingAnchor.constraint(equalTo: scrollHomeView.trailingAnchor),
             testlocationLabel.widthAnchor.constraint(equalTo: scrollHomeView.widthAnchor)
@@ -200,11 +217,23 @@ extension HomeViewController {
         stackView.alignment = .center
         stackView.distribution = .equalSpacing
         navigationItem.titleView = stackView
+ 
+        //MARK: - Configure Deteil Model
+        
+        nearbyPlaceColletcion.set(cells: DetailsHomeModel.featch())
     }
+
+    //MARK: - Button Tapped objc functions
     
     @objc func setCountryButtonTapped() {
         print("Set coutry")
     }
+    
+    @objc func filerSearchButtonTapped() {
+        print("Filer search button tapped")
+    }
+    
+    //MARK: - Change country
     
     func makeDropMenu()-> UIMenu {
         let ukraine = UIAction(title: "Ukraine") { _ in
@@ -222,9 +251,4 @@ extension HomeViewController {
         
         return UIMenu(title: "", children: [ukraine, usa, canada, germany])
     }
-    
-    @objc func filerSearchButtonTapped() {
-        print("Filer search button tapped")
-    }
-    
 }
