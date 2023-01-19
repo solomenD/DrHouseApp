@@ -95,7 +95,7 @@ class HomeViewController: BaseController, UIScrollViewDelegate{
     
     private var nearbyPlaceColletcion = NearbyPlacesCollectionView()
     
-    private var segmentedControlView = SegmentedTaableView()
+    private var segmentedControlView = SegmentedTableView()
     
     private let testlocationLabel: UILabel = {
         var label = UILabel()
@@ -115,7 +115,7 @@ extension HomeViewController {
         view.setupView(stackSearchView)
         view.setupView(scrollHomeView)
         scrollHomeView.setupView(buyHouseButton)
-        scrollHomeView.setupView(testlocationLabel)
+//        scrollHomeView.setupView(testlocationLabel)
         scrollHomeView.setupView(buyFlatButton)
         scrollHomeView.setupView(rentButton)
         scrollHomeView.setupView(naerbyPlacesLabel)
@@ -132,10 +132,10 @@ extension HomeViewController {
         
         NSLayoutConstraint.activate([
 
-            contentGuide.leadingAnchor.constraint(equalTo: testlocationLabel.leadingAnchor),
+            contentGuide.leadingAnchor.constraint(equalTo: scrollHomeView.leadingAnchor),
 //            contentGuide.topAnchor.constraint(equalTo: testlocationLabel.topAnchor),
-            contentGuide.trailingAnchor.constraint(equalTo: testlocationLabel.trailingAnchor),
-            contentGuide.bottomAnchor.constraint(equalTo: testlocationLabel.bottomAnchor),
+            contentGuide.trailingAnchor.constraint(equalTo: scrollHomeView.trailingAnchor),
+            contentGuide.bottomAnchor.constraint(equalTo: scrollHomeView.bottomAnchor,constant: 120),
                         
             filerSearchButton.widthAnchor.constraint(equalToConstant: 35),
             filerSearchButton.heightAnchor.constraint(equalToConstant: 35),
@@ -176,14 +176,13 @@ extension HomeViewController {
             segmentedControlView.topAnchor.constraint(equalTo: nearbyPlaceColletcion.bottomAnchor,constant: 8),
             segmentedControlView.trailingAnchor.constraint(equalTo: scrollHomeView.trailingAnchor),
             segmentedControlView.leadingAnchor.constraint(equalTo: scrollHomeView.leadingAnchor),
-            segmentedControlView.heightAnchor.constraint(equalToConstant: 400),
+            segmentedControlView.heightAnchor.constraint(equalToConstant: 500),
             
             
-            testlocationLabel.topAnchor.constraint(equalTo: segmentedControlView.bottomAnchor, constant: 50),
-            testlocationLabel.leadingAnchor.constraint(equalTo: scrollHomeView.leadingAnchor),
-            testlocationLabel.trailingAnchor.constraint(equalTo: scrollHomeView.trailingAnchor),
-            testlocationLabel.widthAnchor.constraint(equalTo: scrollHomeView.widthAnchor)
-            
+//            testlocationLabel.topAnchor.constraint(equalTo: segmentedControlView.bottomAnchor, constant: 50),
+//            testlocationLabel.leadingAnchor.constraint(equalTo: scrollHomeView.leadingAnchor),
+//            testlocationLabel.trailingAnchor.constraint(equalTo: scrollHomeView.trailingAnchor),
+//            testlocationLabel.widthAnchor.constraint(equalTo: scrollHomeView.widthAnchor)
             
         ])
     }
@@ -221,6 +220,9 @@ extension HomeViewController {
         //MARK: - Configure Deteil Model
         
         nearbyPlaceColletcion.set(cells: DetailsHomeModel.featch())
+        
+        segmentedControlView.set(cells: DetailsHomeModel.fetchFreeParking())
+        
     }
 
     //MARK: - Button Tapped objc functions
