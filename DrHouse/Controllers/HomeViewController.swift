@@ -173,7 +173,7 @@ extension HomeViewController {
             nearbyPlaceColletcion.leadingAnchor.constraint(equalTo: scrollHomeView.leadingAnchor),
             nearbyPlaceColletcion.heightAnchor.constraint(equalToConstant: 200),
 //            
-            segmentedControlView.topAnchor.constraint(equalTo: nearbyPlaceColletcion.bottomAnchor,constant: 8),
+            segmentedControlView.topAnchor.constraint(equalTo: nearbyPlaceColletcion.bottomAnchor),
             segmentedControlView.trailingAnchor.constraint(equalTo: scrollHomeView.trailingAnchor),
             segmentedControlView.leadingAnchor.constraint(equalTo: scrollHomeView.leadingAnchor),
             segmentedControlView.heightAnchor.constraint(equalToConstant: 500),

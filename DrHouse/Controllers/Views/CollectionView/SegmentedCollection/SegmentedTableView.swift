@@ -24,7 +24,7 @@ class SegmentedTableView: BaseView {
         tableView.reloadData()
     }
     
-    let tableView = UITableView(frame: .zero, style: .plain)
+    let tableView = UITableView(frame: .zero, style: .insetGrouped)
     
     private let stackView: UIStackView = {
         let view = UIStackView()
@@ -40,11 +40,9 @@ extension SegmentedTableView {
         
         segmentedConrol.addTarget(self, action: #selector(handlSegmentedChenge), for: .valueChanged)
 
-        
         tableView.showsVerticalScrollIndicator = false
-        
         tableView.separatorColor = .clear
-        tableView.sectionHeaderTopPadding = 100
+        tableView.backgroundColor = .white
         tableView.rowHeight = 250
         tableView.dataSource = self
         tableView.delegate = self
@@ -80,14 +78,19 @@ extension SegmentedTableView {
 }
 
 extension SegmentedTableView: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
         return cells.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SegmentedTableViewCell.reuseId, for: indexPath) as! SegmentedTableViewCell
-        cell.mainImageView.image = cells[indexPath.row].imageName
-        cell.nameLabel.text = cells[indexPath.row].name
+        cell.mainImageView.image = cells[indexPath.section].imageName
+        cell.nameLabel.text = cells[indexPath.section].name
         return cell
     }
     

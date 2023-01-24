@@ -29,7 +29,7 @@ class SegmentedTableViewCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+    
         backgroundColor = #colorLiteral(red: 0.9607843757, green: 0.9607843757, blue: 0.9607843757, alpha: 1)
         layer.cornerRadius = 15
         layer.shadowRadius = 5
@@ -51,7 +51,7 @@ class SegmentedTableViewCell: UITableViewCell {
     private func setConstraintsView() {
         
         NSLayoutConstraint.activate([
-            
+                
             mainImageView.topAnchor.constraint(equalTo: topAnchor),
             mainImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             mainImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
